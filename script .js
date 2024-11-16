@@ -1,62 +1,91 @@
-let myScore = {
-    wins: 0,
-    losses: 0,
-    ties: 0
+// Default table score object
+let scoreResume = {
+    myScore: {
+        wins: 0,
+        losses: 0,
+        ties: 0
+    },
+    myMove: '',
+    machineChoice: '',
+    gameMessage: '',
+    message: ''
 }
 
+// Geting references to DOM elements
+const gameStatusElement = document.body.querySelector('.gameStatus');
+const scoreTableElement = document.body.querySelector('.scoreTable');
+
+// Retrieve stored score from localStorage (if available)
+let storedScore = localStorage.getItem('scoreStorageTable');
+if (storedScore) {
+    scoreResume = JSON.parse(storedScore);
+    gameStatusElement.innerText = scoreResume.message;
+    scoreTableElement.innerText = calculateScore(scoreResume.myScore);
+}
+// Function to calculate the score summary
 function calculateScore(table) {
     return (
         `Wins: ${table.wins} , losses: ${table.losses}, ties: ${table.ties}`
     )
 }
-
+// Function for generating machine move (rock, paper, or scissors)
 function machineMove() {
     let randomNumber = Math.floor((Math.random() * 3) + 1);
     return randomNumber === 1 ? 'rock' : randomNumber === 2 ? 'paper' : 'scissors';
 }
-
-let gameMessage = null;
-const gameStatusElement = document.body.querySelector('.gameStatus');
-const scoreTableElement = document.body.querySelector('.scoreTable');
+// Function to handle the game logique
 function myMove(myMove) {
-    let machineChoice = machineMove();
+    const machineChoice = machineMove();
+    scoreResume.myMove = myMove;
+    scoreResume.machineChoice = machineChoice;
     if (myMove === machineChoice) {
-        myScore.ties++;
-        gameMessage = 'It is a tie';
+        scoreResume.myScore.ties++;
+        scoreResume.gameMessage = 'It is a tie';
 
     }
     else if (
-        myMove === 'rock' && machineChoice === 'scissors' ||
-        myMove === 'paper' && machineChoice === 'rock' ||
-        myMove === 'scissors' && machineChoice === 'paper') {
-        myScore.wins++;
-        gameMessage = 'You win';
+        (myMove === 'rock' && machineChoice === 'scissors') ||
+        (myMove === 'paper' && machineChoice === 'rock') ||
+        (myMove === 'scissors' && machineChoice === 'paper')
+    ) {
+        scoreResume.myScore.wins++;
+        scoreResume.gameMessage = 'You win';
     }
     else {
-        myScore.losses++;
-        gameMessage = 'You lose';
+        scoreResume.myScore.losses++;
+        scoreResume.gameMessage = 'You lose';
 
     }
+    gameStatusElement.innerText = `You chose ${myMove}, machine chose ${machineChoice}. ${scoreResume.gameMessage}`;
+    scoreTableElement.innerText = calculateScore(scoreResume.myScore);
 
-    gameStatusElement.innerText = gameMessage;
-
-    scoreTableElement.innerText = calculateScore(myScore);
+    scoreResume.message = gameStatusElement.innerText;
+    localStorage.setItem('scoreStorageTable', JSON.stringify(scoreResume));
 }
 
+// Function to reset the score
 function resetScore() {
-    myScore = {
-        wins: 0,
-        losses: 0,
-        ties: 0
+    scoreResume = {
+        myScore: {
+            wins: 0,
+            losses: 0,
+            ties: 0
+        },
+        myMove: '',
+        machineChoice: '',
+        gameMessage: '',
+        message: ''
     }
+
+    scoreTableElement.innerText = calculateScore(scoreResume.myScore);
     gameStatusElement.innerText = 'Game Restarted';
-    scoreTableElement.innerText = calculateScore(myScore);
+
+    localStorage.removeItem('scoreStorageTable');
 }
+
+// function to subcribe element
 function subcribeElement() {
-    const subcriptionElement = document.body.querySelector('.subcribeElement');
-
-    const subcriptionElementText = subcriptionElement.innerText;
-
-    const toggleText = subcriptionElementText === 'Subcribe' ? 'Unsubscribe' : 'Subcribe';
-    subcriptionElement.innerText = toggleText;
+    const subscriptionElement = document.body.querySelector('.subcribeElement');
+    subscriptionElement.innerText = (subscriptionElement.innerText === 'Subcribe') ? 'Unsubscribe' : 'Subcribe';
 }
+
