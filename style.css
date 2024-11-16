@@ -1,0 +1,109 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Global Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Styling for the main heading */
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for the YouTube subscribe button */
+  .subcribeElement {
+    background-color: #ff4c4c;
+    color: white;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .subcribeElement:hover {
+    background-color: #f44336;
+  }
+  
+  /* Styling for the game buttons */
+  div {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  div button {
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 1rem;
+    padding: 12px 24px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  div button:hover {
+    background-color: #dcdcdc;
+  }
+  
+  /* Styling for the stats paragraph */
+  p {
+    font-size: 1.2rem;
+    margin: 10px;
+    color: #333;
+  }
+  
+  .gameStatus {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #777;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    .subcribeElement {
+      width: 80%;
+      padding: 12px 0;
+    }
+  
+    div button {
+      width: 100%;
+      margin: 5px 0;
+      font-size: 1.1rem;
+      padding: 15px;
+    }
+  
+    p {
+      font-size: 1rem;
+    }
+  }
+  

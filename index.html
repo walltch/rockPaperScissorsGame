@@ -4,14 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock Paper  Scissors</title>
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
   <script defer src="script .js"></script>
 </head>
 
 <body>
-  <button onclick="myMove('rock')">Rock</button>
-  <button onclick="myMove('paper')">Paper</button>
-  <button onclick="myMove('scissors')">Scissors</button>
-  <button onclick="resetScore()">Reset</button>
+  <h1>YouTube Subcribe Button</h1>
+  <button onclick="subcribeElement()" class="subcribeElement">Subcribe</button>
+
+  <div>
+    <button onclick="myMove('rock')">Rock</button>
+    <button onclick="myMove('paper')">Paper</button>
+    <button onclick="myMove('scissors')">Scissors</button>
+    <button onclick="resetScore()">Reset</button>
+  </div>
+  <p class="gameStatus">Start the game</p>
+  <p class="scoreTable"> Wins:0 , losses: 0, ties: 0</p>
 </body>
+
 </html>

@@ -4,11 +4,6 @@ let myScore = {
     ties: 0
 }
 
-let storedScore = localStorage.getItem('myScore');
-if (storedScore) {
-    myScore = JSON.parse(storedScore);
-}
-
 function calculateScore(table) {
     return (
         `Wins: ${table.wins} , losses: ${table.losses}, ties: ${table.ties}`
@@ -20,35 +15,48 @@ function machineMove() {
     return randomNumber === 1 ? 'rock' : randomNumber === 2 ? 'paper' : 'scissors';
 }
 
-
+let gameMessage = null;
+const gameStatusElement = document.body.querySelector('.gameStatus');
+const scoreTableElement = document.body.querySelector('.scoreTable');
 function myMove(myMove) {
     let machineChoice = machineMove();
     if (myMove === machineChoice) {
-        console.log('It\'s a tie!');
         myScore.ties++;
+        gameMessage = 'It is a tie';
 
     }
     else if (
         myMove === 'rock' && machineChoice === 'scissors' ||
         myMove === 'paper' && machineChoice === 'rock' ||
         myMove === 'scissors' && machineChoice === 'paper') {
-        console.log('You win!');
         myScore.wins++;
+        gameMessage = 'You win';
     }
     else {
-        console.log('You lose!');
         myScore.losses++;
+        gameMessage = 'You lose';
 
     }
-    localStorage.setItem("myScore", JSON.stringify(myScore));
-    console.log(calculateScore(myScore));
+
+    gameStatusElement.innerText = gameMessage;
+
+    scoreTableElement.innerText = calculateScore(myScore);
 }
 
 function resetScore() {
-    myScore.wins = 0;
-    myScore.losses = 0;
-    myScore.ties = 0;
-    console.clear();
-    console.log(calculateScore(myScore));
-    localStorage.removeItem('myScore');
+    myScore = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+    }
+    gameStatusElement.innerText = 'Game Restarted';
+    scoreTableElement.innerText = calculateScore(myScore);
+}
+function subcribeElement() {
+    const subcriptionElement = document.body.querySelector('.subcribeElement');
+
+    const subcriptionElementText = subcriptionElement.innerText;
+
+    const toggleText = subcriptionElementText === 'Subcribe' ? 'Unsubscribe' : 'Subcribe';
+    subcriptionElement.innerText = toggleText;
 }
