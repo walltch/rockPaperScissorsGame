@@ -64,23 +64,36 @@ function myMove(myMove) {
 }
 
 // Function to reset the score
-function resetScore() {
-    scoreResume = {
-        myScore: {
-            wins: 0,
-            losses: 0,
-            ties: 0
-        },
-        myMove: '',
-        machineChoice: '',
-        gameMessage: '',
-        message: ''
-    }
-
+function restartScore() {
+    // Update the scoreResume object to reset scores but retain other info like message
+    scoreResume.myScore = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+    };
+    scoreResume.myMove = '';
+    scoreResume.machineChoice = '';
+    scoreResume.gameMessage = '';
+    scoreResume.message = 'Game Restarted';
     scoreTableElement.innerText = calculateScore(scoreResume.myScore);
-    gameStatusElement.innerText = 'Game Restarted';
+    gameStatusElement.innerText = scoreResume.message;
+    localStorage.setItem('scoreStorageTable', JSON.stringify(scoreResume));
+}
 
-    localStorage.removeItem('scoreStorageTable');
+function resetGame() {
+    // Clear localStorage so that no data is stored
+    scoreResume.myScore = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+    };
+    scoreResume.myMove = '';
+    scoreResume.machineChoice = '';
+    scoreResume.gameMessage = '';
+    scoreResume.message = 'Game Restarted';
+    scoreTableElement.innerText = calculateScore(scoreResume.myScore);
+    gameStatusElement.innerText = scoreResume.message;
+    localStorage.removeItem('scoreStorageTable', JSON.stringify(scoreResume));
 }
 
 // function to subcribe element
